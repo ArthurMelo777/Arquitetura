@@ -1,4 +1,23 @@
-class biToHex:
+class decToBin:
+    def __init__(self, de, bi = ''):
+        self.de = de
+        self.bi = bi
+
+    def converter (self):
+        i = len(self.bi)
+        while self.de >= 1:
+            self.bi = self.bi + str(self.de%2)
+            self.de = self.de//2
+            i = i - 1
+        self.bi = self.bi[::-1]
+    
+    def regBit (self) :
+        if len(self.bi) == 1: self.bi = '0000' + self.bi
+        elif len(self.bi) == 2: self.bi = '000' + self.bi
+        elif len(self.bi) == 3: self.bi = '00' + self.bi
+        elif len(self.bi) == 4: self.bi = '0' + self.bi
+            
+class binToHex:
     def __init__(self, bi, hx = ''):
         self.bi = bi
         self.hx = hx
@@ -23,3 +42,13 @@ class biToHex:
             self.hx = self.hx + f'{bif[i]}'
         
         return self.hx
+
+com = "$add $8 $0 $2"
+com = com[1:]
+com = com.split(' $')
+t = len(com)
+print(com, t)
+a = decToBin(16)
+a.converter()
+a.regBit()
+print(a.bi)
