@@ -4,13 +4,16 @@ class Asm ():
     def __init__ (self, code, lcode='', t=0, r1='0', r2='0', r3='0', s='', syscode=''):
         self.code = code
     
+    def defCode(self, code):
+        self.code = code
+    
     def imediate (self):
         if self.lcode[0] == 'addi' or self.lcode[0] == 'addiu' or self.lcode[0] == 'andi' or self.lcode[0] == 'ori' or self.lcode[0] == 'slti' or self.lcode[0] == 'sltiu' or self.lcode[0] == 'sll' or self.lcode[0] == 'sra' or self.lcode[0] == 'srl' or self.lcode[0] == 'xori':
             return True
         else: return False
 
-    def sys (self):
-        if self.lcode[0] == 'syscall':
+    def doisAtributos (self):
+        if self.lcode[0] == 'div' or self.lcode[0] == 'divu' or self.lcode[0] == 'mult' or self.lcode[0] == 'multu':
             return True
         else: return False
 
@@ -18,8 +21,9 @@ class Asm ():
         self.lcode = self.code.split(' ')
         if self.imediate():
             self.lcode[1], self.lcode[2] = self.lcode[1][1:], self.lcode[2][1:]
-        elif self.sys():
-            self.lcode[0] = str(self.lcode)[2:-2]
+        elif self.doisAtributos():
+            self.lcode[1], self.lcode[2] = self.lcode[1][1:], self.lcode[2][1:]
+        elif self.code == 'syscall': pass
         else:
             self.lcode[1], self.lcode[2], self.lcode[3] = self.lcode[1][1:], self.lcode[2][1:], self.lcode[3][1:]
         self.t = len(self.lcode)
@@ -31,10 +35,16 @@ class Asm ():
             self.r1, self.r2, self.r3 = self.lcode[1], self.lcode[2], self.lcode[3]
 
     def convs (self):
-        cd1, cd2, cd3 = decToBin(self.r1), decToBin(self.r2), decToBin(self.r3)
-        cd1.converter(), cd2.converter(), cd3.converter()
-        cd1.regBit(), cd2.regBit(), cd3.regBit()
-        self.r1, self.r2, self.r3 = cd1.retBin(), cd2.retBin(), cd3.retBin()
+        if self.doisAtributos():
+            cd1, cd2 = decToBin(self.r1), decToBin(self.r2)
+            cd1.converter(), cd2.converter()
+            cd1.regBit(), cd2.regBit()
+            self.r1, self.r2= cd1.retBin(), cd2.retBin()
+        else:
+            cd1, cd2, cd3 = decToBin(self.r1), decToBin(self.r2), decToBin(self.r3)
+            cd1.converter(), cd2.converter(), cd3.converter()
+            cd1.regBit(), cd2.regBit(), cd3.regBit()
+            self.r1, self.r2, self.r3 = cd1.retBin(), cd2.retBin(), cd3.retBin()
 
     def verificarTamanho (self):
         if len(self.s) == 32: return True
@@ -168,7 +178,7 @@ class Asm ():
         elif self.lcode[0] == 'subu':
             self.s = '000000' + self.r2 + self.r3 + self.r1 + '00000' + '100011'
             return self.s
-        elif self.lcode[0] == 'syscall':
+        elif self.code == 'syscall':
             # self.s = '000000' + self.syscode + '001100'
             # self.s = '000000' + self.repararSyscode() + '001100'
             self.s = '000000' + '00000000000000000000' + '001100'

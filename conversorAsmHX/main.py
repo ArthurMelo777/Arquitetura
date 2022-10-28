@@ -1,27 +1,21 @@
 from comAsm import *
 from convnum import *
+from manipulTXT import *
 
 # TESTES
 
-a = Asm('addi $2 $0 5')
-a.criaArray()
-print(a.lcode)
-a.atribReg()
-a.convs()
-v = a.retBinario()
-print(v)
-c = binToHex(v)
-c.converter()
-v = c.retHex()
-print(v)
-a.code = 'syscall'
-a.criaArray()
-print(a.lcode)
-a.atribReg()
-a.convs()
-v = a.retBinario()
-print(v)
-c = binToHex(v)
-c.converter()
-v = c.retHex()
-print(v)
+asm = Asm('')
+mTxt = Arquivo()
+comandos = mTxt.tratarArray()
+linhashexa = []
+
+for i in range(len(comandos)):
+    asm.defCode(comandos[i])
+    asm.criaArray()
+    asm.atribReg()
+    asm.convs()
+    c = binToHex(asm.retBinario())
+    c.converter()
+    linhashexa.append(c.retHex())
+
+mTxt.escreverArquivo(linhashexa)
