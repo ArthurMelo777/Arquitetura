@@ -10,6 +10,7 @@ SEPARAÇÃO DOS GRUPOS:
 1 atributo - nop, syscall
 3 atributos - div, divu, mult, multu
 4 atributos - add, addi, addiu, addu, and, andi, mul, nor, or, ori, sll, slt, slti, sltiu, sltu, sra, srl, sub, subu, xor, xori
+4. Adição de condicionais para verificar e retornar o binário de cada comando acima citado
 
 ### Problemas
 LOOP INFINITO!!! Não consigo adicionar os zeros para completar 16 bits. (*PROBLEMA SOLUCIONADO*)
