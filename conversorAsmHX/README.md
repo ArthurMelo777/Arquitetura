@@ -12,7 +12,7 @@ SEPARAÇÃO DOS GRUPOS:
 4 atributos - add, addi, addiu, addu, and, andi, mul, nor, or, ori, sll, slt, slti, sltiu, sltu, sra, srl, sub, subu, xor, xori
 
 ### Problemas
-LOOP INFINITO!!! Não consigo adicionar os zeros para completar 16 bits.
+LOOP INFINITO!!! Não consigo adicionar os zeros para completar 16 bits. (*PROBLEMA SOLUCIONADO*)
 Como verificar se um comando possui dois ou três parâmetros?
 Como realizar o comando nop?
 Comandos com imediate, como posso realizar o split?
