@@ -3,7 +3,7 @@
 .text
 	main:
 	addi $5 $0 2000 # 1 segundo
-	addi $6 $0 24 #24 - 31 guitarra
+	addi $6 $0 28 #24 - 31 guitarra
 	addi $7 $0 65 # volume
 	addi $24 $0 0
 	addi $25 $0 48
@@ -44,7 +44,6 @@
 	addi $2 $0 31
 	syscall
 	jal fortimer
-	addi $6 $0 24
 	addi $24 $24 4
 	j for
 	
@@ -54,7 +53,6 @@
 	addi $2 $0 31
 	syscall
 	jal fortimer
-	addi $6 $0 24
 	addi $24 $24 4
 	j for
 	
